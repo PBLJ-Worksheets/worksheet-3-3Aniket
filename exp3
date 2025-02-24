@@ -1,0 +1,71 @@
+
+abstract class Account {
+    double interestRate;
+    double amount;
+
+    
+    abstract double calculateInterest();
+}
+
+
+class FDAccount extends Account {
+    int noOfDays;
+    int ageOfAccountHolder;
+
+   
+    FDAccount(double amount, int noOfDays, int ageOfAccountHolder) {
+        this.amount = amount;
+        this.noOfDays = noOfDays;
+        this.ageOfAccountHolder = ageOfAccountHolder;
+    }
+
+    
+    double calculateInterest() {
+        if (amount < 10000000) { // Less than 1 crore
+            if (noOfDays >= 7 && noOfDays <= 14) interestRate = ageOfAccountHolder >= 60 ? 5.0 : 4.5;
+            else if (noOfDays >= 15 && noOfDays <= 29) interestRate = ageOfAccountHolder >= 60 ? 5.25 : 4.75;
+            else if (noOfDays >= 30 && noOfDays <= 45) interestRate = ageOfAccountHolder >= 60 ? 6.0 : 5.5;
+            else if (noOfDays >= 46 && noOfDays <= 60) interestRate = ageOfAccountHolder >= 60 ? 7.5 : 7.0;
+            else if (noOfDays >= 61 && noOfDays <= 184) interestRate = ageOfAccountHolder >= 60 ? 8.0 : 7.5;
+            else if (noOfDays >= 185 && noOfDays <= 365) interestRate = ageOfAccountHolder >= 60 ? 8.5 : 8.0;
+        } else { // 1 crore or more
+            if (noOfDays >= 7 && noOfDays <= 14) interestRate = 6.5;
+            else if (noOfDays >= 15 && noOfDays <= 29) interestRate = 6.75;
+            else if (noOfDays >= 30 && noOfDays <= 45) interestRate = 6.75;
+            else if (noOfDays >= 46 && noOfDays <= 60) interestRate = 8.0;
+            else if (noOfDays >= 61 && noOfDays <= 184) interestRate = 8.5;
+            else if (noOfDays >= 185 && noOfDays <= 365) interestRate = 10.0;
+        }
+
+
+        return (amount * interestRate) / 100;
+    }
+}
+
+
+class RDAccount extends Account {
+    int noOfMonths;
+    double monthlyDepositAmount;
+    int ageOfAccountHolder;
+
+   
+    RDAccount(double monthlyDepositAmount, int noOfMonths, int ageOfAccountHolder) {
+        this.monthlyDepositAmount = monthlyDepositAmount;
+        this.noOfMonths = noOfMonths;
+        this.ageOfAccountHolder = ageOfAccountHolder;
+    }
+
+    
+  
+    double calculateInterest() {
+        if (noOfMonths == 6) interestRate = ageOfAccountHolder >= 60 ? 8.0 : 7.5;
+        else if (noOfMonths == 9) interestRate = ageOfAccountHolder >= 60 ? 8.25 : 7.75;
+        else if (noOfMonths == 12) interestRate = ageOfAccountHolder >= 60 ? 8.5 : 8.0;
+        else if (noOfMonths == 15) interestRate = ageOfAccountHolder >= 60 ? 8.75 : 8.25;
+        else if (noOfMonths == 18) interestRate = ageOfAccountHolder >= 60 ? 9.0 : 8.5;
+        else if (noOfMonths == 21) interestRate = ageOfAccountHolder >= 60 ? 9.25 : 8.75;
+
+       
+        return (monthlyDepositAmount * noOfMonths * interestRate) / 100;
+    }
+}
